@@ -33,13 +33,13 @@ Head to tags and set tag to the latest version and donwload the .zip and paste t
 ## Other methods
 
 ### #1
-Head to ```https://github.dev/Ren-B-7/Super-Start.nvim``` and download via the VsCode browser editor.
-
-Then finally go to ```~/.config/``` and paste the "nvim" folder here
-
-### #2
 
 With command ```cd ~/.config``` enter the .config directiry, now run ```git clone --branch tag-name --single-branch https://github.com/Ren-B-7/nvim-installation-package.git``` then copy the "nvim" folder and paste in ```~/.config/``` and remove the directory ```~/.config/nvim-installation-package```.
+
+### #2
+Head to ```https://github.dev/Ren-B-7/Simplexity.nvim``` and download via the VsCode browser editor.
+
+Then finally go to ```~/.config/``` and paste the "nvim" folder here
 
 ### #3
 Or alternatively only download the wanted folders via github itself and paste within the ```~/.config/nvim directory```.
