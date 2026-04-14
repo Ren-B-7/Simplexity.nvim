@@ -12,6 +12,7 @@ return {
 			menu = { auto_show = true },
 			list = { selection = { preselect = true, auto_insert = true } },
 		},
+		signature = { enabled = true },
 		-- Key mappings preselect
 		keymap = {
 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -37,44 +38,6 @@ return {
 
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
-			providers = {
-				lsp = {
-					name = "lsp",
-					enabled = true,
-					module = "blink.cmp.sources.lsp",
-					score_offset = 90, -- Higher number = higher priority
-				},
-				path = {
-					name = "Path",
-					module = "blink.cmp.sources.path",
-					score_offset = 25,
-					fallbacks = { "snippets", "buffer" },
-					opts = {
-						trailing_slash = false,
-						label_trailing_slash = true,
-						get_cwd = function(context)
-							return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
-						end,
-						show_hidden_files_by_default = true,
-					},
-				},
-				buffer = {
-					name = "Buffer",
-					enabled = true,
-					max_items = 3,
-					module = "blink.cmp.sources.buffer",
-					min_keyword_length = 4,
-					score_offset = 15,
-				},
-				snippets = {
-					name = "snippets",
-					enabled = true,
-					min_keyword_length = 2,
-					module = "blink.cmp.sources.snippets",
-					score_offset = 85,
-				},
-			},
 		},
 	},
-	opts_extend = { "sources.default" },
 }

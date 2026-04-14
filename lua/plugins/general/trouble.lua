@@ -1,6 +1,21 @@
 return {
 	"folke/trouble.nvim",
 	cmd = { "Trouble" },
-	lazy = true,
-	opts = {}, -- for default options, refer to the configuration section for custom setup.
+	opts = {
+		modes = {
+			lsp = {
+				win = { position = "right", size = 0.3 },
+			},
+		},
+		icons = {
+			indent = {
+				top = "│ ",
+				middle = "├─ ",
+				last = "└─ ",
+				fold_open = " ",
+				fold_closed = " ",
+				ws = "  ",
+			},
+		},
+	},
 }

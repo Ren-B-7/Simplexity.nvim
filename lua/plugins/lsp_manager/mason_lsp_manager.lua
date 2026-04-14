@@ -2,35 +2,39 @@ local custom_configs = {}
 
 return {
 	{
-		"mason-org/mason-lspconfig.nvim",
-		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
-		lazy = true,
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"neovim/nvim-lspconfig",
+			{ "folke/lazydev.nvim", ft = "lua", opts = {} },
+		},
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			ensure_installed = {},
 			automatic_installation = true,
 		},
-		event = { "BufAdd" },
-		config = function()
+		config = function(_, opts)
 			local mason_lspconfig = require("mason-lspconfig")
-			mason_lspconfig.setup()
-
+			local lspconfig = require("lspconfig")
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-				local opts = {
-					capabilities = capabilities,
-				}
+			mason_lspconfig.setup(opts)
 
-				if custom_configs[server_name] then
-					opts = vim.tbl_deep_extend("force", opts, custom_configs[server_name])
-				end
-
-				require("lspconfig")[server_name].setup(opts)
-			end
+			mason_lspconfig.setup_handlers({
+				function(server_name)
+					local server_opts = {
+						capabilities = capabilities,
+					}
+					if custom_configs[server_name] then
+						server_opts = vim.tbl_deep_extend("force", server_opts, custom_configs[server_name])
+					end
+					lspconfig[server_name].setup(server_opts)
+				end,
+			})
 		end,
 	},
 	{
-		"mason-org/mason.nvim",
+		"williamboman/mason.nvim",
 		lazy = true,
 		cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall", "MasonLog" },
 		event = { "UIEnter" },

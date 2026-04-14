@@ -16,13 +16,13 @@ return {
 				c = { "clang-format" },
 				csharp = { "clang-format" },
 				cpp = { "clang-format" },
-				json = { "clang-format", "prettierd" },
+				json = { "prettier" },
 				java = { "clang-format" },
-				javascript = { "clang-format", "prettierd" },
-				html = { "prettierd" },
-				markdown = { "prettierd" },
-				typescript = { "prettierd" },
-				yaml = { "prettierd" },
+				javascript = { "prettier" },
+				html = { "prettier" },
+				markdown = { "prettier" },
+				typescript = { "prettier" },
+				yaml = { "prettier" },
 				lua = { "stylua" },
 			},
 			format_on_save = function()
@@ -38,10 +38,11 @@ return {
 			formatters = {
 				clang_format = {
 					prepend_args = function()
-						return table.insert(
-							format_root and { "--style-file:" .. format_root } or {},
-							"--fallback-style=webkit"
-						)
+						local args = { "--fallback-style=webkit" }
+						if format_root and #format_root > 0 then
+							table.insert(args, 1, "--style-file:" .. format_root[1])
+						end
+						return args
 					end,
 				},
 			},

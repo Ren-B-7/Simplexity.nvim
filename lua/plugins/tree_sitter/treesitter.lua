@@ -11,9 +11,7 @@ return {
 			"BufNewFile",
 		},
 		config = true,
-		build = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
+		build = ":TSUpdate",
 		opts = {
 			ensure_installed = {
 				"c",

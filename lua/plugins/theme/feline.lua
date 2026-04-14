@@ -15,37 +15,6 @@ local theme = {
 	white = "white",
 }
 
-local custom_providers = {}
-
-custom_providers.os_icon = function(name, fallback)
-	fallback = fallback or "NONE"
-	name = name or vim.uv.os_environ().DESKTOP_SESSION
-	local icon = " "
-	if vim.g.nvim_web_devicons ~= 0 then
-		icon = require("nvim-web-devicons").get_icon(name, fallback, { default = false })
-	end
-	return (icon ~= " " and " " .. icon .. " " or icon)
-end
-
-custom_providers.os_type = function()
-	local os_name = vim.uv.os_environ().DESKTOP_SESSION
-	local os_out_name = os_name:lower():gsub("^%l", string.upper)
-	return custom_providers.os_icon(os_name, os_out_name) .. os_out_name
-end
-
-custom_providers.os_info = function()
-	local os = vim.bo.fileformat:upper()
-	local icon
-	if os == "UNIX" then
-		icon = custom_providers.os_icon("linux")
-	elseif os == "MAC" then
-		icon = custom_providers.os_icon("apple")
-	else
-		icon = custom_providers.os_icon("windows")
-	end
-	return os .. icon
-end
-
 local EMPTY_SEP = { str = " ", hl = { fg = theme.none, bg = theme.bg } }
 
 local function start(_, opts)
@@ -208,28 +177,6 @@ local function start(_, opts)
 				hl = { bg = theme.bg, fg = theme.blue },
 			},
 		},
-		os_ver = {
-			name = "OS info",
-			hl = {
-				fg = theme.peach,
-				bg = theme.bg,
-				style = "italic",
-			},
-			left_sep = EMPTY_SEP,
-			right_sep = EMPTY_SEP,
-			provider = custom_providers.os_info(),
-		},
-		os_type = {
-			name = "OS type",
-			hl = {
-				fg = theme.peach,
-				bg = theme.bg,
-				style = "italic",
-			},
-			left_sep = EMPTY_SEP,
-			right_sep = EMPTY_SEP,
-			provider = custom_providers.os_type(),
-		},
 		empty = { provider = " ", hl = { fg = theme.none, bg = theme.bg } },
 	}
 
@@ -247,9 +194,7 @@ local function start(_, opts)
 		},
 		{ --mid
 			comp.empty,
-			comp.os_type,
 			comp.file_info,
-			comp.os_ver,
 			comp.empty,
 		},
 		{ --right
@@ -265,18 +210,8 @@ local function start(_, opts)
 
 	local inactive_status = {
 		{ comp.type, comp.empty },
-		{ comp.empty, comp.os_type, comp.file_info, comp.os_ver, comp.empty },
+		{ comp.empty, comp.file_info, comp.empty },
 		{ comp.empty, comp.line_percentage, comp.scroll_bar },
-	}
-
-	local shortened_status = { { comp.type, comp.empty }, {}, { comp.empty, comp.line_percentage } }
-
-	local conditional = {}
-
-	local inactive = {
-		ft = {},
-		bt = {},
-		bn = {},
 	}
 
 	local disabled = {
@@ -286,16 +221,15 @@ local function start(_, opts)
 	}
 
 	opts.components = { active = active_status, inactive = inactive_status }
-	opts.conditional_components = { conditional.nvimtree_custom }
 
-	opts.force_inactive = { filetypes = inactive.ft, buftypes = inactive.bt, bufnames = inactive.bn }
+	opts.force_inactive = { filetypes = {}, buftypes = {}, bufnames = {} }
 	opts.disable = { filetypes = disabled.ft, buftypes = disabled.bt, bufnames = disabled.bn }
 
 	require("feline").setup(opts)
 end
 
 return {
-	"freddiehaddad/feline.nvim",
+	"famiu/feline.nvim",
 	lazy = true,
 	event = "UIEnter",
 	dependencies = {

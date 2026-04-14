@@ -18,26 +18,16 @@ local opts = {
 	default_integrations = true,
 	integrations = {
 		alpha = true,
-		cmp = true,
+		blink_cmp = true,
 		gitsigns = true,
 		harpoon = true,
-		indent_blankline = {
-			enabled = true,
-			colored_indent_levels = true,
-		},
-		lsp_trouble = true,
+		indent_blankline = { enabled = true },
+		trouble = true,
 		mason = true,
-		markdown = false,
+		markdown = true,
 		mini = { enabled = true },
 		native_lsp = {
 			enabled = true,
-			virtual_text = {
-				errors = { "italic" },
-				hints = { "italic" },
-				warnings = { "italic" },
-				information = { "italic" },
-				ok = { "italic" },
-			},
 			underlines = {
 				errors = { "undercurl" },
 				hints = { "undercurl" },
