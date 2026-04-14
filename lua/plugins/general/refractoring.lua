@@ -4,7 +4,7 @@ return {
 	cmd = "Refactor",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"nvim-treesitter/nvim-treesitter",
+		"romus204/tree-sitter-manager.nvim",
 		"nvim-telescope/telescope.nvim",
 	},
 	opts = {

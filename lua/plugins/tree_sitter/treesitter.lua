@@ -3,7 +3,7 @@
 -- syntax highlighting.
 return {
 	{
-		"nvim-treesitter/nvim-treesitter",
+		"romus204/tree-sitter-manager.nvim",
 		enabled = true,
 		lazy = true,
 		event = {
@@ -36,7 +36,7 @@ return {
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
-		dependencies = { { "nvim-treesitter/nvim-treesitter" } },
+		dependencies = { { "romus204/tree-sitter-manager.nvim" } },
 		lazy = true,
 		opts = {},
 		config = function()
@@ -48,8 +48,8 @@ return {
 		},
 	},
 	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		"romus204/tree-sitter-manager.nvim-textobjects",
+		dependencies = { "romus204/tree-sitter-manager.nvim" },
 		enabled = true,
 		lazy = true,
 		event = {
@@ -59,7 +59,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		dependencies = { "romus204/tree-sitter-manager.nvim" },
 		enabled = true,
 		lazy = true,
 		ft = {
